@@ -1,6 +1,4 @@
-# the following github action should publish the file wis2box.images as a release asset
-
-name: Publish
+name: Publish Release Asset
 
 on:
   release:
@@ -8,23 +6,35 @@ on:
 
 permissions:
   contents: read
+  actions: none
+  checks: none
+  deployments: none
+  issues: none
   packages: write
-  issues: write
-  pull-requests: write
+  pull-requests: none
+  repository-projects: none
+  security-events: none
+  statuses: none
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-      - name: Publish
-        uses: actions/upload-release-asset@v1
+      - name: Verify Asset File
+        run: |
+          if [ ! -f ./wis2box-images.json ]; then
+            echo "Error: File 'wis2box-images.json' does not exist."
+            exit 1
+          fi
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v2
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./wis2box-images.json
           asset_name: wis2box-images.json
-          asset_content_type: application/octet-stream
-          token: ${{ secrets.GITHUB_TOKEN }}
+          asset_content_type: application/json
   
