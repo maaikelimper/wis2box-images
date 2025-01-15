@@ -30,7 +30,7 @@ jobs:
             exit 1
           fi
       - name: Debug Upload URL
-          run: echo "${{ github.event.release.upload_url }}"
+        run: echo "${{ github.event.release.upload_url }}"
       - name: Test API Access
         run: |
           curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
