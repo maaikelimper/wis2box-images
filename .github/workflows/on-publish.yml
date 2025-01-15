@@ -23,8 +23,8 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./wis2box.images
-          asset_name: wis2box.images
+          asset_path: ./wis2box-images.json
+          asset_name: wis2box-images.json
           asset_content_type: application/octet-stream
           token: ${{ secrets.GITHUB_TOKEN }}
   
