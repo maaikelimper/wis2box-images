@@ -1,7 +1,7 @@
 {
     "nginx" : "alpine",
     "ghcr.io/wmo-im/wis2box-ui": "1.0b8",
-    "ghcr.io/wmo-im/wis2box-webapp": "0.2.1",
+    "ghcr.io/wmo-im/wis2box-webapp": "0.2.2",
     "ghcr.io/wmo-im/wis2box-api": "1.0b8",
     "minio/minio": "RELEASE.2024-08-03T04-33-23Z-cpuv1",
     "docker.elastic.co/elasticsearch/elasticsearch": "8.6.2",
