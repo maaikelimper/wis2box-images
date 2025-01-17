@@ -1,0 +1,41 @@
+name: Trivy Scan
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  trivy-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Trivy
+        uses: aquasecurity/trivy-action@v0.11.0
+
+      - name: Parse image list
+        id: parse-images
+        run: |
+          echo "::set-output name=images::$(jq -r 'to_entries[] | \"\(.key):\(.value)\"' wis2box-images.json | tr '\n' ',')"
+
+      - name: Run Trivy scan on images
+        run: |
+          images=$(echo "${{ steps.parse-images.outputs.images }}" | tr ',' '\n')
+          for image in $images; do
+            IFS=':' read -r repo tag <<< "$image"
+            if [ -z "$tag" ]; then
+              echo "No tag found for $repo, skipping."
+              continue
+            fi
+            full_image="$repo:$tag"
+            echo "Scanning $full_image"
+            trivy image --exit-code 1 "$full_image"
+          done
+        env:
+          TRIVY_SEVERITY: CRITICAL,HIGH
+          TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db:2
+          TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db:1
