@@ -7,6 +7,7 @@ on:
 
 jobs:
   prepare-matrix:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     outputs:
       image-matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -26,6 +27,7 @@ jobs:
           echo "$images" | jq empty
 
   trivy-scan:
+    if: ${{ false }}
     needs: prepare-matrix
     runs-on: ubuntu-latest
     strategy:

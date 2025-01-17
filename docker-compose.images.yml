@@ -31,3 +31,15 @@ services:
 
   wis2downloader:
     image: ghcr.io/wmo-im/wis2downloader:v0.3.2
+
+  loki:
+    image: grafana/loki:2.4.1
+
+  prometheus:
+    image: prom/prometheus:v2.37.0
+
+  grafana:
+    image: grafana/grafana:9.0.3
+
+  elasticsearch-exporter:
+    image: quay.io/prometheuscommunity/elasticsearch-exporter:latest
