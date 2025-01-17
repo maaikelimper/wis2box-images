@@ -42,7 +42,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./wis2box-images.json
-          asset_name: wis2box-images.json
+          asset_path: ./docker-compose.images.yml
+          asset_name: docker-compose.images.yml
           asset_content_type: application/json
   
