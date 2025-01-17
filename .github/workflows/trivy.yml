@@ -14,27 +14,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Parse image list
+      - name: Parse image list and set output
         id: parse-images
         run: |
           images=$(jq -c 'to_entries[] | {image: (.key + ":" + .value)}' wis2box-images.json | jq -s .)
-          echo "Matrix: $images"
-          echo "matrix=$images" >> $GITHUB_ENV
+          echo "$images"
+          echo "::set-output name=images::$images"
 
       - name: Validate JSON format
         run: |
           echo "$images" | jq empty
-
-      - name: Set matrix output
-        id: set-matrix
-        run: echo "matrix=${{ steps.parse-images.outputs.matrix }}"
 
   trivy-scan:
     needs: prepare-matrix
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ${{ fromJson(needs.prepare-matrix.outputs.image-matrix) }}
+        image: ${{ fromJson(needs.prepare-matrix.outputs.images) }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
