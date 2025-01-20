@@ -6,7 +6,7 @@ services:
     image: ghcr.io/wmo-im/wis2box-ui:1.0b8
 
   wis2box-webapp:
-    image: ghcr.io/wmo-im/wis2box-webapp:0.2.1
+    image: ghcr.io/wmo-im/wis2box-webapp:0.2.2
 
   wis2box-api:
     image: ghcr.io/wmo-im/wis2box-api:1.0b8
