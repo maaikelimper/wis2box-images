@@ -25,8 +25,8 @@ jobs:
 
       - name: Verify Asset File
         run: |
-          if [ ! -f ./wis2box-images.json ]; then
-            echo "Error: File 'wis2box-images.json' does not exist."
+          if [ ! -f ./docker-compose.images.yml ]; then
+            echo "Error: File 'docker-compose.images.yml' does not exist."
             exit 1
           fi
       - name: Debug Upload URL
